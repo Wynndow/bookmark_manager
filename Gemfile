@@ -11,4 +11,5 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'dm-transactions'
   gem 'byebug'
+  gem 'rake'
 end
