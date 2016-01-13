@@ -12,7 +12,7 @@
       <li>
         Title: <%=link.title%>
         URL: <a href="http://<%=link.url%>"><%=link.url%></a>
-        Tag: <%= link.tags.first.tag %>
+        Tag: <%= link.tags.map(&:tag).join(', ') %>
       </li>
     <% end %>
   </ul>
