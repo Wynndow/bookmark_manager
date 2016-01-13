@@ -4,9 +4,10 @@ gem 'sinatra'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
 
-group :test do
+group :test, :development do
   gem 'rspec-sinatra'
   gem 'rspec'
   gem 'capybara'
-
+  gem 'database_cleaner'
+  gem 'dm-transactions'
 end
