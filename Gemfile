@@ -10,4 +10,5 @@ group :test, :development do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'dm-transactions'
+  gem 'byebug'
 end
