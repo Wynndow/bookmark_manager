@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Sign Up </title>
+  </head>
+  <body>
+    <h1> Sign Up </h1>
+    <form method="post" action="/users">
+      <label for="username">
+        Username:<br>
+        <input type="text" name="username" required /><br><br>
+      </label>
+      <label for="email">
+        Email:<br>
+        <input type="email" name="email" required /><br><br>
+      </label>
+      <label for="password">
+        Password:<br>
+        <input type="password" name="password" required /><br><br>
+      </label>
+      <label for="password_conf">
+        Confirm Password:<br>
+        <input type="password" name="password_conf" required /><br><br>
+      </label>
+      <input type="submit" value="submit"/>
+    </form>
+  </body>
+</html>

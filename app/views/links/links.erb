@@ -5,6 +5,11 @@
 </head>
 <body>
 
+  <%if current_user%>
+    Welcome, <%=@current_user.username%>
+  <%end%>
+
+
   <h1> Links </h1>
 
   <ul id=links>
