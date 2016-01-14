@@ -32,4 +32,13 @@ class User
     self.save
   end
 
+  def self.get_user_by_token(token)
+    user = User.first(password_token: token)
+    if user && user.password_token_time + (60 * 60 * 60) > Time.now
+      user
+    else
+      nil
+    end
+  end
+
 end
