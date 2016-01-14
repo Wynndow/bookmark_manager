@@ -8,5 +8,6 @@ class User
   property :password, BCryptHash
 
   attr_accessor :password_confirmation
+  validates_confirmation_of :password
 
 end
