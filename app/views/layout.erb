@@ -8,7 +8,13 @@
     <div id='welcome'>Welcome, <%=@current_user.username%></div>
   <%end%>
   <%if flash[:errors]%>
-    <div id="errors"><%= flash[:errors]%></div>
+    <div id="errors">
+      <ul>
+        <% flash[:errors].each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+        </ul>
+    </div>
   <%end%>
   <%=yield%>
 </body>

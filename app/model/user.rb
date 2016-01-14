@@ -4,7 +4,11 @@ class User
 
   property :id,       Serial
   property :username, String, required: true, unique: true
-  property :email,    String, required: true, unique: true, format: :email_address
+  property :email,    String, required: true, unique: true,
+                              format: :email_address,
+                              messages: {
+                                is_unique: 'Email address already registered'
+                              }
   property :password, BCryptHash, required: true
 
   attr_accessor :password_confirmation

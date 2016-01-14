@@ -16,4 +16,14 @@ feature 'Adding new users' do
     expect{ sign_up(email: '') }.not_to change{ User.count }
   end
 
+  scenario 'A user can\'t sign up without a valid format email address' do
+    expect{ sign_up(email: 'this_is_not_correct') }.not_to change{ User.count }
+  end
+
+  scenario 'A user can\'t sign up with an alredy used email address' do
+    sign_up
+    expect{ sign_up }.not_to change{ User.count }
+    expect(page).to have_content('Email address already registered')
+  end
+
 end
