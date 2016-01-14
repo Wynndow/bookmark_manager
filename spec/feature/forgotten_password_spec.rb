@@ -3,6 +3,7 @@ feature 'Forgotten Password' do
   before do
     sign_up
     Capybara.reset!
+    allow(SendRecoverLink).to receive(:call)
   end
 
   scenario 'User can request a password reset' do
@@ -62,6 +63,11 @@ feature 'Forgotten Password' do
     fill_in('password_conf', with: 'different')
     click_button('Submit')
     expect(page).to have_content('Password and confirmation do not match')
+  end
+
+  scenario 'it calls the SendRecoverLink service to send the link' do
+    expect(SendRecoverLink).to receive(:call).with(User.first)
+    recover_password
   end
 
 end

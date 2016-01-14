@@ -28,6 +28,7 @@ class BookmarkManager < Sinatra::Base
     user = User.first(email: params[:email])
     if user
       user.generate_token
+      SendRecoverLink.call(user)
     end
     redirect '/users/acknowledgment'
   end
