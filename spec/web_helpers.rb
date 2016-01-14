@@ -35,4 +35,11 @@ module SessionHelpers
                 password_confirmation: 'secret')
   end
 
+  def recover_password
+    visit '/session/new'
+    click_link('Forgotten Password?')
+    fill_in('email', with: 'chris@chris.com')
+    click_button('Submit')
+  end
+
 end
