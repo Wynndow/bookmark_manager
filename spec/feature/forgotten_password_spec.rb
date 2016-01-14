@@ -36,4 +36,32 @@ feature 'Forgotten Password' do
     expect(page).to have_content('Please enter a new password')
   end
 
+  scenario 'it lets you enter a new password if you have a valid token' do
+    recover_password
+    visit("/users/reset_password?token=#{User.first.password_token}")
+    fill_in('password', with: 'newpassword')
+    fill_in('password_conf', with: 'newpassword')
+    click_button('Submit')
+    expect(page).to have_content("Sign In")
+  end
+
+  scenario 'it lets you sign in after a password reset' do
+    recover_password
+    visit("/users/reset_password?token=#{User.first.password_token}")
+    fill_in('password', with: 'newpassword')
+    fill_in('password_conf', with: 'newpassword')
+    click_button('Submit')
+    sign_in(password: 'newpassword')
+    expect(page).to have_content('Welcome, Wynndow')
+  end
+
+  scenario 'it lets you know if your new passwords do not match' do
+    recover_password
+    visit("/users/reset_password?token=#{User.first.password_token}")
+    fill_in('password', with: 'newpassword')
+    fill_in('password_conf', with: 'different')
+    click_button('Submit')
+    expect(page).to have_content('Password and confirmation do not match')
+  end
+
 end

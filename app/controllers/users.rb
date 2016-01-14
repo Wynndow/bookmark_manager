@@ -37,7 +37,24 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/users/reset_password' do
-    'Sorry, your token has expired'
+    user = User.get_user_by_token(params[:token])
+    if user
+      session[:token] = params[:token]
+      erb :'users/reset_password'
+    else
+      "Sorry, your token has expired"
+    end
+  end
+
+  patch '/users' do
+    user = User.get_user_by_token(session[:token])
+    if user.update(password: params[:password],
+                password_confirmation: params[:password_conf])
+       redirect('/session/new')
+    else
+      flash.now[:errors] = user.errors.full_messages
+      erb :'users/reset_password'
+    end
   end
 
 end

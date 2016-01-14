@@ -34,7 +34,7 @@ class User
 
   def self.get_user_by_token(token)
     user = User.first(password_token: token)
-    if user && user.password_token_time + (60 * 60 * 60) > Time.now
+    if user && user.password_token_time + (60 * 60 + 1) >= Time.now
       user
     else
       nil

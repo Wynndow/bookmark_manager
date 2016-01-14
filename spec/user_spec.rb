@@ -38,7 +38,7 @@ describe User do
     it 'returns nil if the token has expired' do
       user = User.first
       user.generate_token
-      Timecop.travel((60*60*60) + 1) do
+      Timecop.travel((60*60) + 1) do
         expect(User.get_user_by_token(user.password_token)).to eq(nil)
       end
     end
