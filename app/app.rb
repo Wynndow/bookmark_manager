@@ -8,6 +8,7 @@ require_relative 'datamapper_setup'
 class BookmarkManager < Sinatra::Base
 
   register Sinatra::Flash
+  use Rack::MethodOverride
 
   enable :sessions
   set :session_secret, 'here lie cats'
@@ -76,7 +77,13 @@ class BookmarkManager < Sinatra::Base
       flash.now[:errors] = ["Incorrect username or password"]
       erb :'session/new'
     end
+  end
 
+  delete '/session' do
+    @user = User.get(session[:user_id])
+    session[:user_id] = nil
+    flash.next[:notice] = "Goodbye"
+    redirect('/links')
   end
 
   # start the server if ruby file executed directly

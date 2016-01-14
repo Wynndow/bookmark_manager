@@ -31,6 +31,8 @@ Capybara.app = BookmarkManager
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
+  config.include SessionHelpers
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
