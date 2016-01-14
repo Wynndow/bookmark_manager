@@ -8,9 +8,8 @@ feature 'Adding new users' do
   end
 
   scenario 'A user is not created if password conf doesn\'t match' do
-    sign_up(password_conf: 'wrong')
-    expect(User.first).to eq(nil)
+    expect{ sign_up(password_conf: 'wrong') }.not_to change{User.count}
+    expect(page).to have_content('Password and confirmation do not match')
   end
-
 
 end

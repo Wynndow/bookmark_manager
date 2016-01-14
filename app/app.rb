@@ -2,9 +2,12 @@ ENV['RACK_ENV']||='development'
 
 
 require 'sinatra/base'
+require 'sinatra/flash'
 require_relative 'datamapper_setup'
 
 class BookmarkManager < Sinatra::Base
+
+  register Sinatra::Flash
 
   enable :sessions
   set :session_secret, 'here lie cats'
@@ -41,6 +44,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/users/new' do
+    @user = User.new
     erb :'users/new'
   end
 
@@ -49,9 +53,14 @@ class BookmarkManager < Sinatra::Base
                        email: params[:email],
                        password: params[:password],
                        password_confirmation: params[:password_conf])
-    user.save
-    session[:user_id] = user.id
-    redirect '/links'
+    if user.save
+      session[:user_id] = user.id
+      redirect '/links'
+    else
+      flash.now[:errors] = 'Password and confirmation do not match'
+      @user = user
+      erb :'users/new'
+    end
   end
 
   # start the server if ruby file executed directly

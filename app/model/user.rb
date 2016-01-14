@@ -8,6 +8,7 @@ class User
   property :password, BCryptHash
 
   attr_accessor :password_confirmation
-  validates_confirmation_of :password
+  validates_confirmation_of :password,
+                            message: 'Password and confirmation do not match'
 
 end
